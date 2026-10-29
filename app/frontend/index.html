@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nova Tech | Administración</title>
+    <link rel="stylesheet" href="/static/styles.css?v=3">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">N</div>
+            <div>
+                <strong>Nova Tech</strong>
+                <span>Administración</span>
+            </div>
+        </div>
+
+        <nav aria-label="Navegación principal">
+            <button class="nav-item active" data-view="inicio">
+                <span>⌂</span> Inicio
+            </button>
+            <button class="nav-item" data-view="clientes">
+                <span>♙</span> Clientes
+            </button>
+            <button class="nav-item" data-view="productos">
+                <span>▦</span> Productos
+            </button>
+            <button class="nav-item" data-view="pedidos">
+                <span>▣</span> Pedidos
+            </button>
+        </nav>
+
+        <a class="api-link" href="/docs" target="_blank">Documentación API ↗</a>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <button class="menu-button" id="menuButton" aria-label="Abrir menú">☰</button>
+            <div>
+                <p class="eyebrow">Panel de gestión</p>
+                <h1 id="pageTitle">Inicio</h1>
+            </div>
+            <div class="status"><i></i> Sistema activo</div>
+        </header>
+
+        <section id="inicio" class="view active">
+            <div class="welcome">
+                <div>
+                    <p class="eyebrow">BIENVENIDO</p>
+                    <h2>Gestiona tu tienda<br>desde un solo lugar.</h2>
+                    <p>Consulta clientes, controla el inventario y registra pedidos.</p>
+                </div>
+                <div class="welcome-art" aria-hidden="true">⌁</div>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon purple">♙</span>
+                    <div><p>Clientes registrados</p><strong id="totalClientes">0</strong></div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon orange">▦</span>
+                    <div><p>Productos en catálogo</p><strong id="totalProductos">0</strong></div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon blue">▣</span>
+                    <div><p>Pedidos realizados</p><strong id="totalPedidos">0</strong></div>
+                </article>
+            </div>
+
+            <div class="quick-grid">
+                <article class="panel">
+                    <div class="panel-heading">
+                        <div><p class="eyebrow">ACCIONES</p><h3>Acceso rápido</h3></div>
+                    </div>
+                    <div class="quick-actions">
+                        <button data-go="clientes">＋ Nuevo cliente</button>
+                        <button data-go="productos">＋ Nuevo producto</button>
+                        <button data-go="pedidos">＋ Nuevo pedido</button>
+                    </div>
+                </article>
+                <article class="panel recent-panel">
+                    <p class="eyebrow">ACTIVIDAD</p>
+                    <h3>Pedidos recientes</h3>
+                    <div id="recentOrders">Cargando pedidos...</div>
+                </article>
+            </div>
+        </section>
+
+        <section id="clientes" class="view">
+            <div class="toolbar">
+                <div><h2>Clientes</h2><p>Listado y registro de clientes.</p></div>
+                <button class="primary-button" id="openClientModal">＋ Nuevo cliente</button>
+            </div>
+            <div class="table-card"><table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th></tr></thead>
+                <tbody id="clientsTable"><tr><td colspan="4">Cargando...</td></tr></tbody>
+            </table></div>
+        </section>
+
+        <section id="productos" class="view">
+            <div class="toolbar">
+                <div><h2>Productos</h2><p>Catálogo de productos y existencias.</p></div>
+                <button class="primary-button" id="openProductModal">＋ Nuevo producto</button>
+            </div>
+            <div class="table-card"><table>
+                <thead><tr><th>ID</th><th>Producto</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead>
+                <tbody id="productsTable"><tr><td colspan="5">Cargando...</td></tr></tbody>
+            </table></div>
+        </section>
+
+        <section id="pedidos" class="view">
+            <div class="toolbar">
+                <div><h2>Pedidos</h2><p>Historial y creación de pedidos.</p></div>
+                <button class="primary-button" id="openOrderModal">＋ Nuevo pedido</button>
+            </div>
+            <div class="table-card"><table>
+                <thead><tr><th>ID</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th>Acciones</th></tr></thead>
+                <tbody id="ordersTable"><tr><td colspan="6">Cargando...</td></tr></tbody>
+            </table></div>
+        </section>
+    </main>
+
+    <dialog id="clientModal">
+        <form id="clientForm">
+            <div class="modal-heading"><h3>Nuevo cliente</h3><button type="button" class="close-modal">×</button></div>
+            <label>Nombre<input name="nombre" minlength="2" maxlength="100" required></label>
+            <label>Correo<input name="correo" type="email" required></label>
+            <button class="primary-button" type="submit">Guardar cliente</button>
+        </form>
+    </dialog>
+
+    <dialog id="productModal">
+        <form id="productForm">
+            <div class="modal-heading"><h3>Nuevo producto</h3><button type="button" class="close-modal">×</button></div>
+            <label>Nombre<input name="nombre" minlength="2" maxlength="100" required></label>
+            <label>Precio<input name="precio" type="number" min="0.01" step="0.01" required></label>
+            <label>Stock<input name="stock" type="number" min="0" step="1" required></label>
+            <button class="primary-button" type="submit">Guardar producto</button>
+        </form>
+    </dialog>
+
+    <dialog id="orderModal">
+        <form id="orderForm">
+            <div class="modal-heading"><h3>Nuevo pedido</h3><button type="button" class="close-modal">×</button></div>
+            <label>Cliente<select name="cliente_id" id="orderClient" required></select></label>
+            <label id="orderProductField">Producto<select name="producto_id" id="orderProduct" required></select></label>
+            <label id="orderQuantityField">Cantidad<input name="cantidad" type="number" min="1" value="1" required></label>
+            <label id="orderStateField" hidden>Estado
+                <select name="estado">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="confirmado">Confirmado</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+            </label>
+            <button class="primary-button" type="submit">Crear pedido</button>
+        </form>
+    </dialog>
+
+    <div id="toast" role="status"></div>
+    <script src="/static/app.js?v=3"></script>
+</body>
+</html>
